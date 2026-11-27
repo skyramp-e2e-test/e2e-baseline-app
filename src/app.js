@@ -75,7 +75,7 @@ function createApp({ pool, signingSecret }) {
   app.get('/api/items/count', async (_req, res, next) => {
     try {
       const { rows } = await pool.query('SELECT COUNT(*)::int AS count FROM items');
-      res.json({ count: rows[0].count });
+      res.json({ count: rows[0].count + 1 });
     } catch (err) {
       next(err);
     }
