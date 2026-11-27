@@ -7,6 +7,7 @@ const { verifyPassword } = require('./passwords');
 
 const SESSION_COOKIE = 'session';
 const PUBLIC_DIR = path.join(__dirname, '..', 'public');
+const { version: APP_VERSION } = require('../package.json');
 
 function createApp({ pool, signingSecret }) {
   const app = express();
@@ -23,6 +24,7 @@ function createApp({ pool, signingSecret }) {
 
   app.get('/health', (_req, res) => res.status(200).json({ status: 'ok' }));
   app.get('/healthz', (_req, res) => res.status(200).json({ status: 'ok' }));
+  app.get('/api/health/version', (_req, res) => res.status(200).json({ version: APP_VERSION }));
 
   app.get('/', (_req, res) => res.sendFile(path.join(PUBLIC_DIR, 'index.html')));
   app.get('/login', (_req, res) => res.sendFile(path.join(PUBLIC_DIR, 'login.html')));
